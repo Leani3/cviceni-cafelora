@@ -1,7 +1,7 @@
+import { Layer } from '../Layer';
 import './index.css';
 
-export const Drink = (props) => {
-  const { name, ordered, image, layers } = props;
+export const Drink = ({ id, name, ordered, image, layers }) => {
   return (
     <div className="drink">
       <div className="drink__product">
@@ -10,17 +10,18 @@ export const Drink = (props) => {
         </div>
         <div className="drink__info">
           <h3>{name}</h3>
-          <div className="layer">
-            <div
-              className="layer__color"
-              style={{ backgroundColor: '#613916' }}
-            ></div>
-            <div className="layer__label">espresso</div>
-          </div>
+          {layers.map((layer) => {
+            return <Layer color={layer.color} label={layer.label} />;
+          })}
         </div>
       </div>
       <div className="drink__controls">
-        <button className="order-btn">Objednat</button>
+        <form>
+          <button className="order-btn" type="submit">
+            Objednat
+          </button>
+          <input type="hidden" value={id} />
+        </form>
       </div>
     </div>
   );
